@@ -11,9 +11,9 @@ const PrimaryLayout: React.FC<IPrimaryLayout> = ({ children }) => {
       <Head>
         <title>My App</title>
       </Head>
-      <main>
-        <NavBar sampleProp="Big Ol Nav Bar" />
-        {children}
+      <main className=" flex flex-wrap justify-center font-poppins">
+        <NavBar />
+        <div className="max-w-3xl">{children}</div>
       </main>
     </>
   );
