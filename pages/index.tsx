@@ -1,9 +1,9 @@
-import { auth } from '@/lib/firebase/config';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { NextPage } from 'next';
+import { UserContext } from '@/lib/context/UserContext';
+import { useContext } from 'react';
 
 const Home: NextPage = () => {
-  const [user, loading] = useAuthState(auth);
+  const { user } = useContext(UserContext);
 
   return (
     <div className="hero min-h-screen bg-base-200">

@@ -1,4 +1,6 @@
-import Head from 'next/head';
+import { UserContext } from '@/lib/context/UserContext';
+import { auth } from '@/lib/firebase/config';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import NavBar from '../navbar/NavBar';
 
 export interface IPrimaryLayout {
@@ -6,15 +8,18 @@ export interface IPrimaryLayout {
 }
 
 const PrimaryLayout: React.FC<IPrimaryLayout> = ({ children }) => {
+  const [user, loading, error] = useAuthState(auth);
+
   return (
     <>
-      <Head>
-        <title>My App</title>
-      </Head>
-      <main className=" flex flex-wrap justify-center font-poppins">
-        <NavBar />
-        <div className="max-w-3xl">{children}</div>
-      </main>
+      <UserContext.Provider
+        value={{ user, loading, error, logout: () => auth.signOut() }}
+      >
+        <main className=" flex flex-wrap justify-center font-poppins">
+          <NavBar />
+          <div className="max-w-3xl">{children}</div>
+        </main>
+      </UserContext.Provider>
     </>
   );
 };
